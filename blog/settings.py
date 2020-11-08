@@ -27,19 +27,19 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
 
     'corsheaders',
-    
+
     'posts'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'blog.urls'
@@ -64,18 +64,18 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,53 +92,33 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media_root")
+MEDIA_URL = '/media/'
 
-AUTHENTICATION_BACKENDS = [
+AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
-]
-
+)
 SITE_ID = 1
-
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
     ]
 }
-
-CORS_ALLOWED_ORIGINS = [
-    "https://example.com",
-    "https://sub.example.com",
+CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
-    "http://127.0.0.1:9000"
 ]
 
-CORS_ORIGINS_WHITELIST = [
-    "https://example.com",
-    "https://sub.example.com",
-    "http://localhost:3000",
-    "http://127.0.0.1:9000"
-]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
