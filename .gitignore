@@ -167,3 +167,5 @@ pip-selfcheck.json
 
 static_root
 media_root
+
+doc.http

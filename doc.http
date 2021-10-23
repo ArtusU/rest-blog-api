@@ -13,8 +13,8 @@ POST http://127.0.0.1:8000/dj-rest-auth/registration/
 Content-Type: application/json
 
 {
-    "username": "testuser99",
-    "email": "testuser99@test.com",
+    "username": "Pata",
+    "email": "pata@test.com",
     "password1": "haslo12345",
     "password2": "haslo12345"
 }
